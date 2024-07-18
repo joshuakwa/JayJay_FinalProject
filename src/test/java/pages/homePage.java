@@ -8,17 +8,17 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-public class login {
+public class homePage {
     WebDriver driver;
     WebDriverWait wait;
 
-    By usernameInput = By.id("loginusername");
+    By bannerHomePage = By.id("contcar");
     By passwordInput = By.id("loginpassword");
     By loginHeaderBtn = By.id("login2");
     By loginBtn = By.cssSelector("button[onclick='logIn()']");
     By nameOfUser = By.id("nameofuser");
 
-    public login(WebDriver driver){
+    public homePage(WebDriver driver){
         this.driver = driver;
     }
 

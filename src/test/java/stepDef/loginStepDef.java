@@ -4,19 +4,14 @@ import Base.baseTest;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import org.openqa.selenium.By;
 import pages.login;
 import io.cucumber.java.en.Given;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
 public class loginStepDef extends baseTest{
 
     login LoginPage;
-    WebDriverWait wait;
 
     @Given("user is on demoblaze.com page")
     public void userIsOnDemoBlaze(){
@@ -24,7 +19,7 @@ public class loginStepDef extends baseTest{
         LoginPage.goToLogin();
     }
 
-    @When("user click sign up button from header menu")
+    @When("user click sign in button from header menu")
     public void userClickSignUpButtonFromHeaderMenu() {
         LoginPage.clickLoginHeaderBtn();
     }
