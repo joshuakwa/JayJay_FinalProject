@@ -26,3 +26,30 @@ Feature: UI Automation test demoblaze
     And user input sign up password
     When user click sign up button
     Then system will show alert says sign up successful
+
+  @web
+  Scenario: Click all the categories in homepage
+    Given user is on demoblaze.com page
+    When user click phones categories
+    Then system will show all phones products
+    When user click laptops categories
+    Then system will show all laptops products
+    When user click monitor categories
+    Then system will show all monitor products
+
+  @web
+  Scenario: Click next and previous button to see other page
+    Given user is on demoblaze.com page
+    When user click next page button
+    Then system will show next page products
+    When user click previous page button
+    Then system will show previous page products
+
+  @web
+  Scenario: Add to cart a product from homepage
+    Given user is on demoblaze.com page
+    And user is already logged in
+    When user click first product in phones page
+    Then system will show product detail page
+    When user click add to cart button
+    Then system will show alert says product added
