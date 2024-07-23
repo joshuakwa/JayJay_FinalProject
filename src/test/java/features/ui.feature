@@ -53,3 +53,57 @@ Feature: UI Automation test demoblaze
     Then system will show product detail page
     When user click add to cart button
     Then system will show alert says product added
+
+  @web
+  Scenario: See phone product detail
+    Given user is on demoblaze.com page
+    When user click first product in phones page
+    Then system will show product detail page
+
+  @web
+  Scenario: Send a message through contact menu
+    Given user is on demoblaze.com page
+    When user click contact on header menu
+    And user fill contact email with "joshuakwa99@gmail.com"
+    And user fill contact name with "joshua"
+    And user fill message text with "testing 123"
+    And user click send message button
+    Then system will show alert says send message success
+
+  @web
+  Scenario: See all product in my cart after add product to cart
+    Given user is on demoblaze.com page
+    And user is already logged in
+    And user click first product in phones page
+    And user click add to cart button
+    Then system will show alert says product added
+    When user click cart icon from header menu
+    Then system will show page of cart list
+
+  @web
+  Scenario: Delete first product from cart
+    Given user is on demoblaze.com page
+    And user is already logged in
+    And user click first product in phones page
+    And user click add to cart button
+    Then system will show alert says product added
+    When user click cart icon from header menu
+    And user click delete button on the first item
+
+  @web
+  Scenario: Buy 1 phone product
+    Given user is on demoblaze.com page
+    And user is already logged in
+    And user click first product in phones page
+    And user click add to cart button
+    Then system will show alert says product added
+    When user click cart icon from header menu
+    And user click place order button
+    And user fill name field with "joshua"
+    And user fill country field with "indonesia"
+    And user fill city field with "jakarta"
+    And user fill credit card field with "test"
+    And user fill month field with "02"
+    And user fill year field with "2020"
+    And user click purchase button
+    Then system will show pop up of success placing order with detail information
