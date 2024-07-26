@@ -28,6 +28,8 @@ public class productDetailStepDef extends baseTest {
 
     @When("user click first product in phones page")
     public void userClickFirstProductInPhonesPage() {
+        HomePage = new homePage(driver);
+        ProductDetail = new productDetail(driver);
         HomePage.clickFirstPhonesProduct();
     }
 
