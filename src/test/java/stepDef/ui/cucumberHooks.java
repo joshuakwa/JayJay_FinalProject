@@ -1,4 +1,4 @@
-package stepDef;
+package stepDef.ui;
 
 import Base.baseTest;
 import io.cucumber.java.After;

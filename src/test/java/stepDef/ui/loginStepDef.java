@@ -1,13 +1,11 @@
-package stepDef;
+package stepDef.ui;
 
 import Base.baseTest;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import pages.login;
+import pages.ui.login;
 import io.cucumber.java.en.Given;
-
-import java.time.Duration;
 
 public class loginStepDef extends baseTest{
 

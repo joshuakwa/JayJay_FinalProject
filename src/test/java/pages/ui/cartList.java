@@ -1,4 +1,4 @@
-package pages;
+package pages.ui;
 
 import org.junit.Assert;
 import org.openqa.selenium.Alert;

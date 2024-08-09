@@ -1,10 +1,10 @@
-package stepDef;
+package stepDef.ui;
 
 import Base.baseTest;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import pages.contactUs;
+import pages.ui.contactUs;
 
 public class contactUsStepDef extends baseTest {
     contactUs ContactUs;

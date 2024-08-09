@@ -1,9 +1,9 @@
-package stepDef;
+package stepDef.ui;
 
 import Base.baseTest;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
-import pages.placeOrder;
+import pages.ui.placeOrder;
 
 public class placeOrderStepDef extends baseTest {
     placeOrder PlaceOrder;

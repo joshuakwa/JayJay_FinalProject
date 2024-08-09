@@ -1,4 +1,4 @@
-package pages;
+package pages.api;
 
 import Base.baseTest;
 import org.json.JSONObject;

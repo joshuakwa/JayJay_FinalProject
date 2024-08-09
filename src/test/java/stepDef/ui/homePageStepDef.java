@@ -1,9 +1,9 @@
-package stepDef;
+package stepDef.ui;
 
 import Base.baseTest;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import pages.homePage;
+import pages.ui.homePage;
 
 public class homePageStepDef extends baseTest {
 

@@ -1,13 +1,12 @@
-package stepDef;
+package stepDef.ui;
 
 import Base.baseTest;
-import groovy.util.logging.Log;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import pages.homePage;
-import pages.login;
-import pages.productDetail;
+import pages.ui.homePage;
+import pages.ui.login;
+import pages.ui.productDetail;
 
 public class productDetailStepDef extends baseTest {
     homePage HomePage;

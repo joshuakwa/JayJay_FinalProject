@@ -1,11 +1,10 @@
-package stepDef;
+package stepDef.ui;
 
 import Base.baseTest;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import pages.login;
-import pages.signUp;
+import pages.ui.signUp;
 
 import java.util.Random;
 
