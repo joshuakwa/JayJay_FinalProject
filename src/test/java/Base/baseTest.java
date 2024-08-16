@@ -14,14 +14,15 @@ public class baseTest {
 
     protected void getDriver(){
         ChromeOptions options  = new ChromeOptions();
-        options.addArguments("--headless");
+//        options.addArguments("--headless");
         options.addArguments("--no-sandbox");
+        options.addArguments("--disable-gpu");
         options.addArguments("--disable-dev-shm-usage");
         options.addArguments("--remote-allow-origins=*");
         options.addArguments("--window-size=1920,1080");
         driver = new ChromeDriver(options);
         driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(Duration.ofMillis(2000));
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
     }
 
     @BeforeClass

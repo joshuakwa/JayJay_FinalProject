@@ -13,11 +13,15 @@ import io.restassured.response.Response;
 public class APIPages extends baseTest {
 
     private static Response res;
+    String setURL;
 
     public static void assertStatusCode(int statusCode) {
         res.then().statusCode(statusCode);
     }
 
+    public String prepareUrl(String url){
+        System.out.println("hello prepare url");
+    }
     @Test
     public void getUsers() {
         given().log().all()
