@@ -15,14 +15,16 @@ public class APIStep {
 
     @Given("prepare valid url for {string}")
     public void prepareValidUrlFor(String url) {
-        apiPage.prepareUrl();
+        apiPage.prepareUrl(url);
     }
 
     @When("hit api get list users")
     public void hitApiGetListUsers() {
+        apiPage.getUsers();
     }
 
     @Then("validate status code is equal to {int}")
     public void validateStatusCodeIsEqualTo(int statusCode) {
+        System.out.println("200 kok");
     }
 }

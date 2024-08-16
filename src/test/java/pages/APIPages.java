@@ -1,12 +1,17 @@
 package pages;
 
-import Base.baseTest;
+import Base.*;
 import org.json.JSONObject;
 import org.testng.annotations.Test;
+
+import static Base.models.getListUsers;
 import static io.restassured.RestAssured.*;
 import static org.hamcrest.Matchers.*;
+
 import java.util.UUID;
+
 import static io.restassured.RestAssured.given;
+
 import io.restassured.response.Response;
 
 
@@ -19,15 +24,21 @@ public class APIPages extends baseTest {
         res.then().statusCode(statusCode);
     }
 
-    public String prepareUrl(String url){
-        System.out.println("hello prepare url");
+    public String prepareUrl(String url) {
+        switch (url) {
+            case "USER_GOREST":
+                setURL = endpoint.USER_GOREST;
+                break;
+            default:
+                System.out.println("input right url");
+        }
+        return setURL;
     }
+
     @Test
     public void getUsers() {
-        given().log().all()
-                .get("/users")
-                .then()
-                .assertThat().statusCode(200);
+        res = getListUsers(setURL);
+        System.out.println(res.getBody().asString());
     }
 
     @Test
