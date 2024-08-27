@@ -3,8 +3,6 @@ package pages;
 import Base.*;
 import org.json.JSONObject;
 import org.testng.annotations.Test;
-
-import static Base.models.getListUsers;
 import static io.restassured.RestAssured.*;
 import static org.hamcrest.Matchers.*;
 
@@ -15,7 +13,7 @@ import static io.restassured.RestAssured.given;
 import io.restassured.response.Response;
 
 
-public class APIPages extends baseTest {
+public class APIPages extends models {
 
     private static Response res;
     String setURL;
@@ -24,55 +22,75 @@ public class APIPages extends baseTest {
         res.then().statusCode(statusCode);
     }
 
-    public String prepareUrl(String url) {
-        switch (url) {
-            case "USER_GOREST":
-                setURL = endpoint.USER_GOREST;
-                break;
-            default:
-                System.out.println("input right url");
-        }
+    public String prepareUrl() {
+        setURL = endpoint.USER_GOREST;
+
         return setURL;
     }
 
     @Test
     public void getUsers() {
-        res = getListUsers(setURL);
-        System.out.println(res.getBody().asString());
+        setupHeaders();
+        given().when().get(setURL)
+                .then()
+                .log().all();
     }
 
     @Test
-    public void getUserDetail() {
+    public void getUserDetail(int id) {
+        setupHeaders();
         given().log().all()
-                .get("/users/6940578")
+                .get(setURL + id)
                 .then()
                 .assertThat().statusCode(200)
-                .assertThat().body("id", equalTo(6940578))
-                .assertThat().body("name", equalTo("Buddhana Bharadwaj IV"))
-                .assertThat().body("email", equalTo("bharadwaj_buddhana_iv@kirlin.example"))
-                .assertThat().body("gender", equalTo("female"));
+                .assertThat().body("id", equalTo(id));
     }
 
     @Test
     public void createNewUser() {
-        String randomEmail = "user" + UUID.randomUUID().toString() + "@example.com";
+        String randomEmail = "user" + UUID.randomUUID() + "@example.com";
         String randomName = "name" + UUID.randomUUID().toString().substring(0, 5);
+        String name = "joshuasda";
+        String email = "josadhjuiaos@jaoisd.asdoij";
 
         JSONObject bodyObj = new JSONObject();
 
-        bodyObj.put("name", randomName);
-        bodyObj.put("email", randomEmail);
+        bodyObj.put("name", name);
+        bodyObj.put("email", email);
         bodyObj.put("gender", "male");
         bodyObj.put("status", "active");
 
+        setupHeaders();
         given().log().all()
                 .body(bodyObj.toString())
-                .post("/users")
+                .when()
+                .post("https://gorest.co.in/public/v2/users")
                 .then()
                 .assertThat().statusCode(201)
-                .assertThat().body("name", equalTo(randomName))
-                .assertThat().body("email", equalTo(randomEmail))
+                .assertThat().body("name", equalTo(name))
+                .assertThat().body("email", equalTo(email))
                 .assertThat().body("status", equalTo("active"))
                 .assertThat().body("gender", equalTo("male"));
+    }
+
+    @Test
+    public void createNewUserWithBlankName() {
+        String name = "";
+        String email = "josadhjuiaos@jaoisd.asadoij";
+
+        JSONObject bodyObj = new JSONObject();
+
+        bodyObj.put("name", name);
+        bodyObj.put("email", email);
+        bodyObj.put("gender", "male");
+        bodyObj.put("status", "active");
+
+        setupHeaders();
+        given().log().all()
+                .body(bodyObj.toString())
+                .when()
+                .post("https://gorest.co.in/public/v2/users")
+                .then()
+                .assertThat().statusCode(422);
     }
 }

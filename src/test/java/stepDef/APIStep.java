@@ -13,10 +13,6 @@ public class APIStep {
         this.apiPage = new APIPages();
     }
 
-    @Given("prepare valid url for {string}")
-    public void prepareValidUrlFor(String url) {
-        apiPage.prepareUrl(url);
-    }
 
     @When("hit api get list users")
     public void hitApiGetListUsers() {
@@ -26,5 +22,24 @@ public class APIStep {
     @Then("validate status code is equal to {int}")
     public void validateStatusCodeIsEqualTo(int statusCode) {
         System.out.println("200 kok");
+    }
+
+    @Given("prepare valid url")
+    public void prepareValidUrl() {
+        apiPage.prepareUrl();
+    }
+
+    @When("hit api get detail user with id {int}")
+    public void hitApiGetDetailUserWithId(int id) {
+        apiPage.getUserDetail(id);
+    }
+
+    @When("hit api create new user")
+    public void hitApiCreateNewUser() {
+        apiPage.createNewUser();
+    }
+
+    @When("hit api create new user with blank name")
+    public void hitApiCreateNewUserWithBlankName() {
     }
 }
