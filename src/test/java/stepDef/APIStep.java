@@ -21,7 +21,6 @@ public class APIStep {
 
     @Then("validate status code is equal to {int}")
     public void validateStatusCodeIsEqualTo(int statusCode) {
-        System.out.println("200 kok");
     }
 
     @Given("prepare valid url")

@@ -7,9 +7,9 @@ Feature: API Automation test gorest
     Then validate status code is equal to 200
 
   @api
-  Scenario: Get user detail with id 6940672
+  Scenario: Get user detail with id 6940705
     Given prepare valid url
-    When hit api get detail user with id 6940672
+    When hit api get detail user with id 6940705
     Then validate status code is equal to 200
 
   @api
