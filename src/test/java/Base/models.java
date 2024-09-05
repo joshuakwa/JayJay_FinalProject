@@ -8,7 +8,7 @@ import io.cucumber.java.*;
 public class models {
     //    @Before("@api")
     private static RequestSpecification request;
-    public static void setupHeaders() {
+    public static void setupHeaderssss() {
          request = RestAssured.given()
                 .header("Content-Type", "application/json")
                 .header("Accept", "application/json")

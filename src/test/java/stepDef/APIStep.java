@@ -21,6 +21,7 @@ public class APIStep {
 
     @Then("validate status code is equal to {int}")
     public void validateStatusCodeIsEqualTo(int statusCode) {
+        apiPage.assertStatusCode(statusCode);
     }
 
     @Given("prepare valid url")

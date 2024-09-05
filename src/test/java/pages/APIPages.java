@@ -1,9 +1,13 @@
 package pages;
 
 import Base.*;
+import io.restassured.RestAssured;
+import io.restassured.specification.RequestSpecification;
 import org.json.JSONObject;
 import org.testng.annotations.Test;
+
 import static io.restassured.RestAssured.*;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.*;
 
 import java.util.UUID;
@@ -14,12 +18,15 @@ import io.restassured.response.Response;
 
 
 public class APIPages extends models {
-
+    private static RequestSpecification request;
     private static Response res;
     String setURL;
 
-    public static void assertStatusCode(int statusCode) {
-        res.then().statusCode(statusCode);
+    public static void setupHeaders() {
+        request = RestAssured.given()
+                .header("Content-Type", "application/json")
+                .header("Accept", "application/json")
+                .header("Authorization", "Bearer 38cebe5affdc6038017ae850b112f50d15613c3f40d9d2a5d7bfd75f6218fcc2");
     }
 
     public String prepareUrl() {
@@ -48,10 +55,8 @@ public class APIPages extends models {
 
     @Test
     public void createNewUser() {
-        String randomEmail = "user" + UUID.randomUUID() + "@example.com";
-        String randomName = "name" + UUID.randomUUID().toString().substring(0, 5);
         String name = "joshuasda";
-        String email = "josadhjuiaos@jaoisd.asdoij";
+        String email = "user" + UUID.randomUUID() + "@example.com";
         String gender = "male";
         String status = "active";
 
@@ -63,17 +68,7 @@ public class APIPages extends models {
         bodyObj.put("status", status);
 
         setupHeaders();
-        given().log().all()
-                .body(bodyObj.toString())
-                .when()
-                .post(setURL)
-                .then()
-                .log().all()
-                .assertThat().statusCode(201);
-//                .assertThat().body("name", equalTo(name))
-//                .assertThat().body("email", equalTo(email))
-//                .assertThat().body("status", equalTo("active"))
-//                .assertThat().body("gender", equalTo("male"));
+        res = request.body(bodyObj.toString()).when().post(setURL);
     }
 
     @Test
@@ -95,5 +90,9 @@ public class APIPages extends models {
                 .post("https://gorest.co.in/public/v2/users")
                 .then()
                 .assertThat().statusCode(422);
+    }
+
+    public void assertStatusCode(int statusCode) {
+        assertThat(res.statusCode()).isEqualTo(statusCode);
     }
 }
