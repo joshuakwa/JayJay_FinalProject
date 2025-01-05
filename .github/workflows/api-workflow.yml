@@ -1,4 +1,4 @@
-name: Web automation workflow
+name: API automation workflow
 
 on:
   push:
@@ -34,6 +34,6 @@ jobs:
 
     #execute test only ui automation
     - name: Execute test
-      run: ./gradlew webTest
+      run: ./gradlew apiTest
 
    
