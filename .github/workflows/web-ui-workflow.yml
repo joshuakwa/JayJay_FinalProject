@@ -29,8 +29,8 @@ jobs:
     - name: Setup Chrome
       uses: browser-actions/setup-chrome@v1.7.2
 
-    - name: Setup gradelw
-      run: chmod +x gradelw
+    - name: Setup gradlew
+      run: chmod +x gradlew
 
     #execute test only ui automation
     - name: Execute test
