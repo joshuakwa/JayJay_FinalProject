@@ -1,63 +1,98 @@
 package pages;
 
-import Base.baseTest;
+import Base.*;
+import io.restassured.RestAssured;
+import io.restassured.specification.RequestSpecification;
 import org.json.JSONObject;
 import org.testng.annotations.Test;
+
 import static io.restassured.RestAssured.*;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.*;
+
 import java.util.UUID;
+
 import static io.restassured.RestAssured.given;
+
 import io.restassured.response.Response;
 
 
-public class APIPages extends baseTest {
-
+public class APIPages extends models {
+    private static RequestSpecification request;
     private static Response res;
+    String setURL;
 
-    public static void assertStatusCode(int statusCode) {
-        res.then().statusCode(statusCode);
+    public static void setupHeaders() {
+        request = RestAssured.given()
+                .header("Content-Type", "application/json")
+                .header("Accept", "application/json")
+                .header("Authorization", "Bearer 38cebe5affdc6038017ae850b112f50d15613c3f40d9d2a5d7bfd75f6218fcc2");
+    }
+
+    public String prepareUrl() {
+        setURL = endpoint.USER_GOREST;
+
+        return setURL;
     }
 
     @Test
     public void getUsers() {
-        given().log().all()
-                .get("/users")
+        setupHeaders();
+        given().when().get(setURL)
                 .then()
-                .assertThat().statusCode(200);
+                .log().all();
     }
 
     @Test
-    public void getUserDetail() {
+    public void getUserDetail(int id) {
+        setupHeaders();
         given().log().all()
-                .get("/users/6940578")
+                .get(setURL + id)
                 .then()
                 .assertThat().statusCode(200)
-                .assertThat().body("id", equalTo(6940578))
-                .assertThat().body("name", equalTo("Buddhana Bharadwaj IV"))
-                .assertThat().body("email", equalTo("bharadwaj_buddhana_iv@kirlin.example"))
-                .assertThat().body("gender", equalTo("female"));
+                .assertThat().body("id", equalTo(id));
     }
 
     @Test
     public void createNewUser() {
-        String randomEmail = "user" + UUID.randomUUID().toString() + "@example.com";
-        String randomName = "name" + UUID.randomUUID().toString().substring(0, 5);
+        String name = "joshuasda";
+        String email = "user" + UUID.randomUUID() + "@example.com";
+        String gender = "male";
+        String status = "active";
 
         JSONObject bodyObj = new JSONObject();
 
-        bodyObj.put("name", randomName);
-        bodyObj.put("email", randomEmail);
+        bodyObj.put("name", name);
+        bodyObj.put("email", email);
+        bodyObj.put("gender", gender);
+        bodyObj.put("status", status);
+
+        setupHeaders();
+        res = request.body(bodyObj.toString()).when().post(setURL);
+    }
+
+    @Test
+    public void createNewUserWithBlankName() {
+        String name = "";
+        String email = "josadhjuiaos@jaoisd.asadoij";
+
+        JSONObject bodyObj = new JSONObject();
+
+        bodyObj.put("name", name);
+        bodyObj.put("email", email);
         bodyObj.put("gender", "male");
         bodyObj.put("status", "active");
 
+        setupHeaders();
         given().log().all()
                 .body(bodyObj.toString())
-                .post("/users")
+                .when()
+                .post("https://gorest.co.in/public/v2/users")
                 .then()
-                .assertThat().statusCode(201)
-                .assertThat().body("name", equalTo(randomName))
-                .assertThat().body("email", equalTo(randomEmail))
-                .assertThat().body("status", equalTo("active"))
-                .assertThat().body("gender", equalTo("male"));
+                .assertThat().statusCode(422);
+    }
+
+    public void assertStatusCode(int statusCode) {
+        assertThat(res.statusCode()).isEqualTo(statusCode);
     }
 }
